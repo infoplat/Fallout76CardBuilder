@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,14 +10,17 @@
          如果你喜欢辐射76, 那就加入我们的QQ群吧: 953980582 (辐射76 交易所)">
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.6.3/css/all.css" crossorigin="anonymous">
+    <script src="./js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/fontawesome-free-5.6.3/all.css" crossorigin="anonymous">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
     <!--font-->
     <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC" rel="stylesheet">
+
+    <base target="_blank" />
 
     <style>
         #browser-check {
@@ -24,8 +28,19 @@
         }
     </style>
 
-    <link rel="stylesheet" href="./css/main.css?v=1.12">
-    <script src="./js/main.js?v=1.15"></script>
+    <link rel="stylesheet" href="./css/main.css?v=1.13">
+    <script src="./js/main.js?v=1.13"></script>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1615c9d6c2afedf1f3ae0dad85613b68";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
 </head>
 
 <body>
@@ -46,55 +61,12 @@
 
     <header class="jumbotron text-center" id="header">
         <h1 class="font-weight-bold">辐射76加点模拟器</h1>
-        <a class="" href="https://github.com/FanghanHu/Fallout76CardBuilder/commits/master">(v1.02 更新:1/29/2019)</a>
-        <div id="carouselControls" class="carousel slide" data-ride="carousel" data-interval="10000">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="d-flex h-100 align-items-center justify-content-center">
-                        点击下面的Special字样选择相应种类的卡片
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="d-flex h-100 align-items-center justify-content-center">
-                        点击卡片来添加/删除卡片, 点击星星来选择卡片等级
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="d-flex h-100 align-items-center justify-content-center">
-                        在辐射76中, 超过50级后不能再增加属性, 但是依旧可以获得卡片, 并且已经获得的卡片可以随时调换
-                    </div>
-
-                </div>
-                <div class="carousel-item">
-                    <div class="d-flex h-100 align-items-center justify-content-center">
-                        你可以通过复制地址栏内的网页地址来分享你的加点
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="d-flex h-100 align-items-center justify-content-center">
-                        如果你喜欢辐射76, 那就加入我们的QQ群吧: 953980582 (辐射76 交易所)
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="d-flex h-100 align-items-center justify-content-center">
-                        如果需要重新加点可以使用网页最下方的"重新加点"按钮
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev control" href="#carouselControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true" id="left-arrow"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next control" href="#carouselControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true" id="right-arrow"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
     </header>
 
     <div id="display-section">
         <div id="points-section">
-            剩余点数: <span id="points">49</span>点
+            <!-- 剩余点数: <span id="points">49</span>点 -->
+            剩余点数: <span id="points">79</span>点
         </div>
         <div id="stats-section">
             <div class="stats-card">
@@ -132,8 +104,15 @@
                 <div class="stats-english-name">L</div>
                 <div class="stats-display"><span class="stats">1</span>点</div>
             </div>
+            <div class="stats-card">
+                <div class="stats-chinese-name">传奇</div>
+                <div class="stats-english-name">L</div>
+                <div class="stats-display"><span class="stats">0</span>点</div>
+            </div>
         </div>
         <div id="perk-section">
+            <div class="perk-deck">
+            </div>
             <div class="perk-deck">
             </div>
             <div class="perk-deck">
@@ -155,8 +134,8 @@
         <h4 class="d-inline-block w-50 pl-2 text-white" style="font-family: 'ZCOOL KuaiLe',serif">请选择卡片:</h4>
         <div class="d-inline-flex w-50 pr-2 flex-row-reverse" id="control-buttons">
             <a class="mx-2 btn btn-danger text-white" onclick='if(confirm("你确定要放弃目前的加点吗?")) window.open("index.html", "_self");'>重新加点</a>
-            <a class="mx-2 btn btn-primary text-white" href="https://github.com/FanghanHu/Fallout76CardBuilder/issues">反馈</a>
-            <button class="mx-2 btn btn-success text-white" onclick="copyLink()">分享</button>
+            <!--<a class="mx-2 btn btn-primary text-white" href="https://github.com/FanghanHu/Fallout76CardBuilder/issues">反馈</a>
+            <button class="mx-2 btn btn-success text-white" onclick="copyLink()">分享</button> -->
         </div>
         <div id="card-selection">
 
@@ -165,7 +144,7 @@
 
     <footer class="text-center">
         <span class="d-block mt-5">未经许可, 请勿转载</span>
-        <span class="d-block mb-2">Copyright 2018, Fanghan Hu</span>
+        <span class="d-block mb-2">Copyright 2018-2022, Fanghan Hu <a href="https://suyuening.com">suyuening</a></span>
     </footer>
     <!--suppress HtmlFormInputWithoutLabel -->
     <input type="text" value=":)" id="url-selector" style="width: 1px; border: none">
