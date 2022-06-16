@@ -1,3 +1,4 @@
+
 //////////////////////////////////////////////////
 $(function () {
     loadData();
@@ -15,6 +16,7 @@ var SpecialEnum = {
     INTELLIGENCE: 4,
     AGILITY: 5,
     LUCK: 6,
+    LEGENDARY: 7,
     color: {
         0: "#618869",
         1: "#595034",
@@ -22,7 +24,8 @@ var SpecialEnum = {
         3: "#CA7336",
         4: "#929175",
         5: "#C18768",
-        6: "#9390A4"
+        6: "#9390A4",
+        7: "#FF0000"
     },
     name: {
         0: "strength",
@@ -31,24 +34,29 @@ var SpecialEnum = {
         3: "charisma",
         4: "intelligence",
         5: "agility",
-        6: "luck"
+        6: "luck",
+        7: "legendary"
     }
 };
 
 //used for wrapping selection data into url
 var dictionary = "qQwWeErRtTyYuUiIoOpPaAsSdDfFgGhHjJkKlLzZxXcCvVbBnNmM1234567890";
 
+// 鍔犱笂鎵€鏈変紶濂囧睘鎬у崱锛�56 + 5X6 = 86
+var maxPoints = 86;
+
 //Stores cards that haven't been selected
-var selectable = [[],[],[],[],[],[],[]];
+var selectable = [[],[],[],[],[],[],[],[]];
 
 //Stores cards that have been selected.
-var selected = [[],[],[],[],[],[],[]];
+var selected = [[],[],[],[],[],[],[],[]];
 
 //the special stats, each selected card cost
-var special = [1, 1, 1, 1, 1, 1, 1];
+var special = [1, 1, 1, 1, 1, 1, 1, 1];
 
 //the perk points left, selecting a perk card cost [the cost amount + card level - 1] points.
-var points = 49;
+//svar points = 49;
+var points = 79;
 
 /**
  * loads card data from json file.
@@ -56,12 +64,12 @@ var points = 49;
  */
 function loadData() {
     //fetching data using ajax
-    $.ajax("./data.json",{
+    $.ajax("./data.json?v=1.14",{
         type: "GET",
         dataType: "json"
     }).done(function (data) {
         //populate data into selectable
-        for(var i = 0; i < 7; i++) {
+        for(var i = 0; i < 8; i++) {
             for(var j = 0; j < data[i].length; j++) {
                 var perk = data[i][j];
                 //represent which special stat this perk card belongs.
@@ -130,10 +138,10 @@ function init() {
         dataCopy.level = targetLevel;
         switch (checkStats(dataCopy)) {
             case -2:
-                alert("剩余点数不足.");
+                alert("鍓╀綑鐐规暟涓嶈冻.");
                 break;
             case -1:
-                alert("你最高只能将一项属性加到15.");
+                alert("浣犳渶楂樺彧鑳藉皢涓€椤瑰睘鎬у姞鍒�15.");
                 break;
             case 0:
                 selectCard(dataCopy);
@@ -155,10 +163,10 @@ function init() {
         var cardData = $this.data("cardData");
         switch (checkStats(cardData)) {
             case -2:
-                alert("剩余点数不足.");
+                alert("鍓╀綑鐐规暟涓嶈冻.");
                 break;
             case -1:
-                alert("你最高只能将一项属性加到15.");
+                alert("浣犳渶楂樺彧鑳藉皢涓€椤瑰睘鎬у姞鍒�15.");
                 break;
             case 0:
                 selectCard(cardData);
@@ -174,8 +182,10 @@ function init() {
      */
     $perkSection.delegate(".remove-btn", "click", null, function () {
         var $card = $(this).closest(".perk-card");
-        deselectCard($card.data("cardData"));
+        var $cardData = $card.data("cardData");
+        deselectCard($cardData);
         $card.remove();
+        showSelectableCards($cardData.special);
     })
 }
 
@@ -278,7 +288,7 @@ function copyLink() {
     copyText.value = window.location.href;
     copyText.select();
     document.execCommand("copy");
-    alert("已复制包含加点内容的连接:\n" + copyText.value);
+    alert("宸插鍒跺寘鍚姞鐐瑰唴瀹圭殑杩炴帴:\n" + copyText.value);
 }
 
 /**
@@ -298,10 +308,11 @@ function getCost(cardData, isRealLevel) {
             } else {
                 level = getDisplayLevel(cardData);
             }
-            return cardData.initialCost + level - 1;
+            var cost = cardData.initialCost + level - 1;
+            return cost < 0?0:cost;
         }
 
-        return cardData.initialCost;
+        return cardData.initialCost < 0?0:cost;
     }
 
     return undefined;
@@ -422,7 +433,7 @@ function checkStats(cardData) {
             totalSpecial += totalStats;
         }
     }
-    if(totalSpecial > 56) {
+    if(totalSpecial > maxPoints) {
         return -2;
     }
 
@@ -478,7 +489,7 @@ function updateStats() {
         totalSpecial += stat;
     });
 
-    points = 56 - totalSpecial;
+    points = maxPoints - totalSpecial;
     $("#points").text(points);
 }
 
@@ -531,7 +542,7 @@ function parseSelectionData(selectionData) {
  * @param parameter data string
  */
 function setParameter(parameter) {
-    window.history.replaceState(null, '辐射76加点模拟器', '?data=' + parameter);
+    window.history.replaceState(null, '杈愬皠76鍔犵偣妯℃嫙鍣�', '?data=' + parameter);
 }
 
 //read section:
