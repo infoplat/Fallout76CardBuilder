@@ -1,4 +1,3 @@
-
 //////////////////////////////////////////////////
 $(function () {
     loadData();
@@ -64,7 +63,7 @@ var points = 79;
  */
 function loadData() {
     //fetching data using ajax
-    $.ajax("./data.json?v=1.14",{
+    $.ajax("./data.json?v=1.17",{
         type: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -284,11 +283,13 @@ function showSelectableCards(special) {
  * using an hidden element to copy link into user's clipboard
  */
 function copyLink() {
-    var copyText = document.getElementById("url-selector");
-    copyText.value = window.location.href;
-    copyText.select();
-    document.execCommand("copy");
-    alert("宸插鍒跺寘鍚姞鐐瑰唴瀹圭殑杩炴帴:\n" + copyText.value);
+    var content = window.location.href;
+    $("body").after("<textarea cols='1' rows='1' id='copyContent'>" + content + " </textarea>");
+    var link = document.getElementById("copyContent");
+    link.select(); // 閫夋嫨瀵硅薄
+    document.execCommand("Copy"); // 鎵ц娴忚鍣ㄥ鍒跺懡浠�
+    $("#copyContent").remove();
+    alert("宸插鍒跺寘鍚姞鐐瑰唴瀹圭殑杩炴帴:\n" + content);
 }
 
 /**

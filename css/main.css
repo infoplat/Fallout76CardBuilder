@@ -1,4 +1,3 @@
-
 .container-fluid {
     margin: 0;
     padding: 0;
@@ -23,8 +22,8 @@
 }
 
 header {
-    margin: 2rem;
-    padding: 2rem !important;
+    margin: 0.5rem;
+    padding: 0.5rem !important;
     background-color: #5b8f92 !important;
     font-family: 'ZCOOL KuaiLe', cursive;
     color: white;
@@ -42,7 +41,7 @@ header a:hover {
 #display-section {
     margin: 1rem 2rem;
 
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
 }
 
@@ -158,7 +157,8 @@ header a:hover {
 /*control*/
 #control-section {
     margin: 1rem 2rem;
-    padding: 1rem;
+    /* padding: 1rem; */
+    padding: 0.5rem;
     font-size: 0;
     border-radius: 0.3rem;
     background-color: #5a6268;
