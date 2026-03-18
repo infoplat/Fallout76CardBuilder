@@ -41,7 +41,7 @@ var SpecialEnum = {
 //used for wrapping selection data into url
 var dictionary = "qQwWeErRtTyYuUiIoOpPaAsSdDfFgGhHjJkKlLzZxXcCvVbBnNmM1234567890";
 
-// 鍔犱笂鎵€鏈変紶濂囧睘鎬у崱锛�56 + 5X6 = 86
+// 加上所有传奇属性卡 56 + 5X6 = 86
 var maxPoints = 86;
 
 //Stores cards that haven't been selected
@@ -137,10 +137,10 @@ function init() {
         dataCopy.level = targetLevel;
         switch (checkStats(dataCopy)) {
             case -2:
-                alert("鍓╀綑鐐规暟涓嶈冻.");
+                alert("剩余点数不足.");
                 break;
             case -1:
-                alert("浣犳渶楂樺彧鑳藉皢涓€椤瑰睘鎬у姞鍒�15.");
+                alert("你最高只能将一项属性加到15.");
                 break;
             case 0:
                 selectCard(dataCopy);
@@ -162,10 +162,10 @@ function init() {
         var cardData = $this.data("cardData");
         switch (checkStats(cardData)) {
             case -2:
-                alert("鍓╀綑鐐规暟涓嶈冻.");
+                alert("剩余点数不足.");
                 break;
             case -1:
-                alert("浣犳渶楂樺彧鑳藉皢涓€椤瑰睘鎬у姞鍒�15.");
+                alert("你最高只能将一项属性加到15.");
                 break;
             case 0:
                 selectCard(cardData);
@@ -286,10 +286,10 @@ function copyLink() {
     var content = window.location.href;
     $("body").after("<textarea cols='1' rows='1' id='copyContent'>" + content + " </textarea>");
     var link = document.getElementById("copyContent");
-    link.select(); // 閫夋嫨瀵硅薄
-    document.execCommand("Copy"); // 鎵ц娴忚鍣ㄥ鍒跺懡浠�
+    link.select(); // 选择对象
+    document.execCommand("Copy"); // 执行浏览器复制命令
     $("#copyContent").remove();
-    alert("宸插鍒跺寘鍚姞鐐瑰唴瀹圭殑杩炴帴:\n" + content);
+    alert("已复制包含加点内容的连接:\n" + content);
 }
 
 /**
@@ -543,7 +543,7 @@ function parseSelectionData(selectionData) {
  * @param parameter data string
  */
 function setParameter(parameter) {
-    window.history.replaceState(null, '杈愬皠76鍔犵偣妯℃嫙鍣�', '?data=' + parameter);
+    window.history.replaceState(null, '辐射76加点模拟器', '?data=' + parameter);
 }
 
 //read section:
